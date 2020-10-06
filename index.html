@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Game Space</title>
+    <script type="text/javascript" src="js/paper-full.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Balsamiq+Sans&family=Josefin+Sans&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b11594eab7.js" crossorigin="anonymous"></script>
+    <script type="text/paperscript" canvas="myCanvas">
+      var circles = [];
+      function onKeyDown(event) {
+        var maxPoint = new Point(view.size.width, view.size.height);
+        var randomPoint = Point.random();
+        var point = maxPoint * randomPoint;
+        var newCircle = Path.Circle(point, 500);
+        newCircle.fillColor = 'red';
+        circles.push(newCircle);
+      }
+      var count = 150;
+      var path = new Path.Circle({
+      	center: [0, 0],
+      	radius: 25,
+      	fillColor: 'orange',
+      	strokeColor: 'white'
+      });
+
+      var symbol = new Symbol(path);
+
+      for (var i = 0; i < count; i++) {
+      	var center = Point.random() * view.size;
+      	var placedSymbol = symbol.place(center);
+      	placedSymbol.scale(i / count);
+      }
+      var text = new PointText(view.center);
+      text.content = "This is not anyone's space, or is it?";
+      text.style = {
+          fontFamily: 'Courier New',
+          fontWeight: 'bold',
+          fontSize: 20,
+          fillColor: 'yellow',
+          justification: 'center'
+      };
+      var texta = new PointText(1400,300);
+      texta.content = "Don't press any key, or I'll lose gravity";
+      texta.style = {
+          fontFamily: 'Courier New',
+          fontWeight: 'bold',
+          fontSize: 20,
+          fillColor: 'black',
+          justification: 'center'
+      };
+      var textThing = ["I said DON'T. Simple english bruh!", "Why aren't you listening?", "I'm getting nauseous now", "Wtf is wrong with you!", "Happy Now?"];
+      var j=0;
+      var destination = Point.random() * view.size;
+
+      function onFrame(event) {
+        for ( var i=0; i<circles.length; i++){
+          circles[i].fillColor.hue +=1;
+          texta.fillColor.hue +=1;
+          circles[i].scale(.9);
+          j++;
+          if (j<2){
+            texta.content = "I said DON'T. Simple english bruh!";
+          }
+          else if (j<4){
+            texta.content = "Why aren't you listening?";
+          }
+          else if (j<6){
+            texta.content = "Great! I'm nauseous now";
+          }
+          else if (j<8){
+            texta.content = "Wtf is wrong with you!";
+          }
+          else if (j<10) {
+            texta.content = "Noice! You happy now?";
+          }
+          if(circles[i].area < 1){
+           circles[i].remove();
+           circles.splice(i, 1);
+          }
+          j +=1;
+        }
+        if (i>0){
+          texta.rotate(.5);
+        }
+        texta.fillColor.hue +=1;
+        var vector = destination - text.position;
+        text.position += vector / 30;
+        if (vector.length < 5) {
+      		destination = Point.random() * view.size;
+      	}
+      	for (var i = 0; i < count; i++) {
+      		var item = project.activeLayer.children[i];
+
+      		item.position.x += item.bounds.width / 20;
+
+      		if (item.bounds.left > view.size.width) {
+      			item.position.x = -item.bounds.width;
+      		}
+      	}
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Game Space</h1>
+    </div>
+
+    <a href="https://abhikrn-03.github.io/Color-game/" class="game BUTTON_DSX" id="color">Color Game</a>
+    <a href="https://abhikrn-03.github.io/ipl-game/" class="game BUTTON_DSX" id="ipl">IPL Game</a>
+
+    <div class="empty"></div>
+
+    <div class="footer">
+      <a class="footer-link" id="fb" href="https://www.facebook.com/abhik.sen.378/"><i class="fab fa-facebook-square"></i> facebook</a>
+    	<span>
+    		Let's chat about games and space.
+    	</span>
+      <a class="footer-link" href="https://www.instagram.com/abhikrn_03/"><i class="fab fa-instagram-square"></i> instagram</a>
+      <p class="copyright">© Not_Anyone</p>
+    </div>
+
+    <canvas id="myCanvas" resize></canvas>
+  </body>
+</html>
