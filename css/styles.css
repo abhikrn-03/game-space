@@ -18,6 +18,7 @@ canvas {
   /* color: white; */
   z-index: 1;
   font-family: 'Press Start 2P', cursive;
+  font-size: 1.35rem;
   position: relative;
   left: 10%;
   top: 0px;
