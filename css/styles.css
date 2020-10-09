@@ -75,13 +75,13 @@ canvas {
 }
 
 #ipl {
-  top: 700px;
-  left: 1340px;
+  top: 620px;
+  left: 70%;
 }
 
 #color {
-  top: 515px;
-  left: 370px;
+  top: 470px;
+  left: 20%;
 }
 
 
@@ -142,3 +142,22 @@ canvas {
     padding-top: 0.5%;
     height: 3.2%;
   }
+  #ipl {
+  top: 535px;
+  left: 40%;
+  }
+  #color {
+    top: 330px;
+    left: 25%;
+  }
+  .BUTTON_DSX {
+    font-size: 1.1rem;
+    padding: 8px 15px;
+  }
+  canvas {
+    border-radius: 0% 0% 0% 90%;
+  }
+  .container {
+    font-size: 1rem;
+  }
+}
